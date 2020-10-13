@@ -1,0 +1,30 @@
+@import "../../theme/theme";
+
+.navbar__container {
+  position: relative;
+  display: flex;
+  height: 2.5em;
+  background-color: black;
+
+  .title__container {
+    text-align: left;
+    padding: 10px;
+    width: fit-content;
+  }
+
+  .social__container {
+    display: flex;
+    margin-left: auto;
+    padding: 10px;
+    width: fit-content;
+
+    .social__link:hover {
+      color: $socialColor;
+      text-decoration: none;
+    }
+    .facebook__icon {
+      margin: 2px 5px;
+      font-size: 20px;
+    }
+  }
+}

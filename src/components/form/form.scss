@@ -1,0 +1,17 @@
+.container__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: center;
+  position: relative;
+  margin-left: 30%;
+  background-color: red;
+
+  //padding-left: 5%;
+  width: fit-content;
+  height: fit-content;
+  .name__input {
+  }
+  .container__button {
+    margin: 3%;
+  }
+}

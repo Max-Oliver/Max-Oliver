@@ -1,0 +1,10 @@
+.container__table {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-content: stretch;
+  margin: 2% 5%;
+  padding: auto;
+  //background-color: orange;
+  align-items: center;
+}

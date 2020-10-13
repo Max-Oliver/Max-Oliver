@@ -1,0 +1,27 @@
+@import "../../theme/theme.scss";
+
+.custom__button {
+  background-color: $thirdColor;
+  width: 280px;
+  height: 60px;
+  padding: 10px 60px;
+  border-radius: 10px;
+  margin: 0px;
+  border-style: none;
+  cursor: pointer;
+  transition-duration: 0.5s;
+  color: white;
+  border: 2px solid $thirdColor;
+
+  .button_text {
+    font-size: 25px;
+    letter-spacing: 4px;
+    font-weight: lighter;
+    border-color: none;
+  }
+}
+.custom__button:hover {
+  background-color: white; /* Green */
+  color: $thirdColor;
+  border: 2px solid $thirdColor;
+}

@@ -1,0 +1,38 @@
+.slick-arrow.slick-next {
+  display: flex;
+  position: relative;
+  top: -25vh;
+  right: 0;
+  margin-left: auto;
+  margin-right: 5%;
+  font-size: 40px;
+  font-family: "slick";
+}
+
+.slick-arrow.slick-prev {
+  display: flex;
+  position: absolute;
+  top: 25vh;
+  margin-left: 5%;
+  margin-right: auto;
+  font-size: 40px;
+  font-family: "slick";
+  z-index: 1;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.slick-arrow.slick-prev:before {
+  content: "\2190";
+}
+.slick-arrow.slick-right:before {
+  content: "→";
+}
+.slick-arrow.slick-prev:before,
+.slick-arrow.slick-next:before {
+  font-family: "slick";
+  font-size: 60px;
+  line-height: 1;
+  opacity: 0.75;
+  color: white;
+}
