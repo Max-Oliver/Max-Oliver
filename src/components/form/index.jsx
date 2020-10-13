@@ -57,23 +57,30 @@ export const Form = () => {
   return (
     <div className="container__form">
       <form>
-        <label htmlFor="nombre">Nombre:</label>
-        <input
-          className="name__input"
-          type="text"
-          name="nombre"
-          placeholder="Nombre"
-          onChange={(event) => valueToState(event.target)}
-        />
-        <label htmlFor="apellido">Apellido:</label>
-        <input
-          className="apellido__input"
-          type="text"
-          name="apellido"
-          placeholder="Apellido"
-          onChange={(event) => valueToState(event.target)}
-        />
-        <label htmlFor="email">E-Mail:</label>
+        <div className="fullname__container">
+          <div className="name__container">
+            <label htmlFor="nombre"></label>
+            <input
+              className="name__input"
+              type="text"
+              name="nombre"
+              placeholder="Nombre"
+              onChange={(event) => valueToState(event.target)}
+            />
+          </div>
+          <div className="apellido__container">
+            <label htmlFor="apellido"></label>
+            <input
+              className="apellido__input"
+              type="text"
+              name="apellido"
+              placeholder="Apellido"
+              onChange={(event) => valueToState(event.target)}
+            />
+          </div>
+        </div>
+
+        <label htmlFor="email"></label>
         <input
           className="email__input"
           type="text"
@@ -81,44 +88,58 @@ export const Form = () => {
           placeholder="Email"
           onChange={(event) => valueToState(event.target)}
         />
-        <label htmlFor="departamento">Departamento:</label>
-        <select
-          name="departamento"
-          onChange={(event) => valueToState(event.target)}
-        >
-          {departamentos.map((dept) => {
-            return <option value={dept}>{dept}</option>;
-          })}
-        </select>
 
-        <label htmlFor="localidad">Localidad:</label>
-        <select
-          name="localidad"
-          onChange={(event) => valueToState(event.target)}
-        >
-          {localidades.map((localidad, i) => {
-            return (
-              <option key={i} placeholder="Localidad" value={localidad}>
-                {localidad}
-              </option>
-            );
-          })}
-        </select>
-        <label htmlFor="cedula">C.I.:</label>
-        <input
-          className="cedula__input"
-          type="text"
-          name="cedula"
-          placeholder="Cedula"
-          onChange={(event) => valueToState(event.target)}
-        />
-        <label htmlFor="checkbox"> Acepto las bases y condiciones</label>
-        <input
-          className="checkbox__input"
-          type="checkbox"
-          name="checkbox"
-          onChange={(event) => valueToState(event.target)}
-        />
+        <div className="zones__container">
+          <div className="departamento__container">
+            <label htmlFor="departamento"></label>
+            <select
+              name="departamento"
+              onChange={(event) => valueToState(event.target)}
+            >
+              {departamentos.map((dept) => {
+                return <option value={dept}>{dept}</option>;
+              })}
+            </select>
+          </div>
+          <div className="localidad__container">
+            <label htmlFor="localidad"></label>
+            <select
+              name="localidad"
+              placeholder="localidad"
+              onChange={(event) => valueToState(event.target)}
+            >
+              {localidades.map((localidad, i) => {
+                return (
+                  <option key={i} placeholder="Localidad" value={localidad}>
+                    {localidad}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+        </div>
+
+        <div className="CI__and__checkbox__container">
+          <div className="cedula__container">
+            <label htmlFor="cedula"></label>
+            <input
+              className="cedula__input"
+              type="text"
+              name="cedula"
+              placeholder="Cedula"
+              onChange={(event) => valueToState(event.target)}
+            />
+          </div>
+          <div className="checkbox__container">
+            <label htmlFor="checkbox"> Acepto las bases y condiciones</label>
+            <input
+              className="checkbox__input"
+              type="checkbox"
+              name="checkbox"
+              onChange={(event) => valueToState(event.target)}
+            />
+          </div>
+        </div>
         <div className="container__button">
           <CustomButton buttonText="ENVIAR" onClick={() => {}} />
         </div>
