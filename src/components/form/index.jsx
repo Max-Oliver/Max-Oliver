@@ -1,22 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import "./form.scss";
 import { CustomButton } from "../button/index";
-import validarCedula from "./logic/logica";
+import { validarCedula } from "./logic/logica";
 import { dptosLocs } from "./logic/datos";
+import { useForm } from "react-hook-form";
 
 export const Form = () => {
-  let defaultState = {
+  const [state, setState] = useState({
     nombre: "",
-    appellido: "",
+    apellido: "",
     email: "",
-    description: "",
-    localidad: "",
-    cedula: undefined,
+    departamento: "Montevideo",
+    localidad: "Montevideo",
+    cedula: "",
     checkbox: false,
-  };
-  const [state, setState] = useState(defaultState);
+  });
+
+  const { handleSubmit, register, errors } = useForm({
+    reValidateMode: "onChange",
+  });
   const [departamentos, setDepartamentos] = useState([]);
   const [localidades, setLocalidades] = useState([]);
+  const [validCI, setValidCI] = useState({
+    name: "",
+    valid: false,
+    value: "",
+  });
   const { Artigas, Canelones, Montevideo, Salto } = dptosLocs;
 
   useEffect(() => {
@@ -48,102 +57,207 @@ export const Form = () => {
     });
   };
 
-  const valueToState = ({ name, value, checked, type }) => {
-    setState(() => {
-      return { [name]: type === "checkbox" ? checked : value };
+  const handleInputChange = ({ name, value }) => {
+    setState({
+      ...state,
+      [name]: value,
     });
   };
 
+  const checkValidCI = ({ name, value }) => {
+    if (name === "cedula") {
+      let isValid = validarCedula(value);
+      console.log(`Validando CI -> ${value} es ${isValid}`);
+      if (isValid) {
+        setValidCI({
+          name: name,
+          value: String(value),
+          valid: isValid,
+        });
+        console.log(`Se guardara -> ${name} ${value} es ${isValid}`);
+        handleInputChange(validCI.name, validCI.value);
+      }
+    }
+  };
+
+  const onSubmit = async (event) => {
+    await 1000;
+    console.log("Este es el form: ", { ...state });
+  };
+
   return (
-    <div className="container__form">
-      <form>
-        <div className="fullname__container">
-          <div className="name__container">
-            <label htmlFor="nombre"></label>
-            <input
-              className="name__input"
-              type="text"
-              name="nombre"
-              placeholder="Nombre"
-              onChange={(event) => valueToState(event.target)}
-            />
-          </div>
-          <div className="apellido__container">
-            <label htmlFor="apellido"></label>
-            <input
-              className="apellido__input"
-              type="text"
-              name="apellido"
-              placeholder="Apellido"
-              onChange={(event) => valueToState(event.target)}
-            />
-          </div>
-        </div>
+    <Fragment>
+      <div className="container__form">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="fullname__container">
+            {/* Nombre */}
+            <div className="name__container">
+              <label htmlFor="nombre"></label>
+              <input
+                style={{
+                  border: errors.nombre ? "1px solid red" : "1px solid gray",
+                }}
+                className="name__input"
+                type="text"
+                name="nombre"
+                ref={register({
+                  required: { value: true, message: "El campo es obligatorio" },
+                  minLength: {
+                    value: 2,
+                    message: "El el debe tener minimo dos caracteres",
+                  },
+                })}
+                placeholder="Nombre"
+                onChange={(event) => handleInputChange(event.target)}
+              />
+              {errors.nombre && errors.nombre?.type === "required" && (
+                <p className="error_message_right">Este campo es oblicatorio</p>
+              )}
+              {errors.nombre && errors.nombre?.type === "minLength" && (
+                <p className="error_message_right">
+                  El nombre debe contener minimo dos caracteres
+                </p>
+              )}
+            </div>
 
-        <label htmlFor="email"></label>
-        <input
-          className="email__input"
-          type="text"
-          name="email"
-          placeholder="Email"
-          onChange={(event) => valueToState(event.target)}
-        />
+            {/* Apellido */}
+            <div className="apellido__container">
+              <label htmlFor="apellido"></label>
+              <input
+                style={{
+                  border: errors.apellido ? "1px solid red" : "1px solid gray",
+                }}
+                className="apellido__input"
+                type="text"
+                name="apellido"
+                ref={register({
+                  required: true,
+                  minLength: 2,
+                  message: "El apellido debe tener minimo dos caracteres",
+                })}
+                placeholder="Apellido"
+                onChange={(event) => handleInputChange(event.target)}
+              />
+              {errors.apellido && errors.apellido?.type === "required" && (
+                <p className="error_message_right">Este campo es oblicatorio</p>
+              )}
+              {errors.apellido && errors.apellido?.type === "minLength" && (
+                <p className="error_message_right">
+                  El apellido debe tener minimo dos caracteres
+                </p>
+              )}
+            </div>
+          </div>
 
-        <div className="zones__container">
-          <div className="departamento__container">
-            <label htmlFor="departamento"></label>
-            <select
-              name="departamento"
-              onChange={(event) => valueToState(event.target)}
-            >
-              {departamentos.map((dept) => {
-                return <option value={dept}>{dept}</option>;
+          {/* Email */}
+          <div className="email__input">
+            <label htmlFor="email"></label>
+            <input
+              style={{
+                border: errors.email ? "1px solid red" : "1px solid gray",
+              }}
+              name="email"
+              type="text"
+              placeholder="Email"
+              ref={register({
+                required: { value: true, message: "Este campo es oblicatorio" },
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "Correo invalido",
+                },
               })}
-            </select>
+              onChange={(event) => handleInputChange(event.target)}
+            />
           </div>
-          <div className="localidad__container">
-            <label htmlFor="localidad"></label>
-            <select
-              name="localidad"
-              placeholder="localidad"
-              onChange={(event) => valueToState(event.target)}
-            >
-              {localidades.map((localidad, i) => {
-                return (
-                  <option key={i} placeholder="Localidad" value={localidad}>
-                    {localidad}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-        </div>
+          {errors.email && errors.email?.type === "required" && (
+            <p className="error_message_left">Este campo es oblicatorio</p>
+          )}
+          {errors.email && errors.email?.type === "pattern" && (
+            <p className="error_message_left">
+              El correo ingresado no es valido
+            </p>
+          )}
 
-        <div className="CI__and__checkbox__container">
-          <div className="cedula__container">
-            <label htmlFor="cedula"></label>
-            <input
-              className="cedula__input"
-              type="text"
-              name="cedula"
-              placeholder="Cedula"
-              onChange={(event) => valueToState(event.target)}
-            />
+          <div className="zones__container">
+            {/* Departamento */}
+            <div className="departamento__container">
+              <label htmlFor="departamento"></label>
+              <select
+                name="departamento"
+                value={state.departamento}
+                onChange={(event) => handleInputChange(event.target)}
+              >
+                {departamentos.map((dept, i) => {
+                  return dept != "" ? (
+                    <option key={i} value={dept}>
+                      {dept}
+                    </option>
+                  ) : null;
+                })}
+              </select>
+            </div>
+
+            {/* Localidad */}
+            <div className="localidad__container">
+              <label htmlFor="localidad"></label>
+              <select
+                name="localidad"
+                value={state.localidad}
+                onChange={(event) => handleInputChange(event.target)}
+              >
+                {localidades.map((localidad, i) => {
+                  return localidad != "" ? (
+                    <option key={i} value={localidad}>
+                      {localidad}
+                    </option>
+                  ) : null;
+                })}
+              </select>
+            </div>
           </div>
-          <div className="checkbox__container">
-            <label htmlFor="checkbox"> Acepto las bases y condiciones</label>
-            <input
-              className="checkbox__input"
-              type="checkbox"
-              name="checkbox"
-              onChange={(event) => valueToState(event.target)}
-            />
+
+          <div className="CI__and__checkbox__container">
+            <div className="cedula__container">
+              <label htmlFor="cedula"></label>
+              <input
+                style={{
+                  border: errors.cedula ? "1px solid red" : "1px solid gray",
+                }}
+                className="cedula__input"
+                type="text"
+                name="cedula"
+                placeholder="C.I"
+                ref={register({
+                  required: { value: true, message: "Este campo es requerido" },
+                  validate: validCI ? true : false,
+                })}
+                //TODO: Revisar cedula no se esnvia en el onSubmit log
+                onChange={(event) => checkValidCI(event.target)}
+              />
+              {errors.cedula && errors.cedula?.type === "required" && (
+                <p className="error_message_left">{errors.cedula.message}</p>
+              )}
+              {!validCI.valid && (
+                <p className="error_message_left">
+                  Cedula incorrecta, recuerde solo ingresar numeros.
+                </p>
+              )}
+            </div>
+            <div className="checkbox__container">
+              <label htmlFor="checkbox"> Acepto las bases y condiciones</label>
+              <input
+                className="checkbox__input"
+                type="checkbox"
+                name="checkbox"
+                onChange={(event) => handleInputChange(event.target)}
+              />
+            </div>
           </div>
-        </div>
-        <div className="container__button">
-          <CustomButton buttonText="ENVIAR" onClick={() => {}} />
-        </div>
-      </form>
-    </div>
+          <div className="container__button">
+            <CustomButton buttonText="ENVIAR" type="submit" />
+          </div>
+        </form>
+      </div>
+    </Fragment>
   );
 };

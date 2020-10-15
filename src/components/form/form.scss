@@ -3,24 +3,34 @@
   width: 50%;
   height: fit-content;
   padding: 35px;
-  //background-color: red;
+
+  .error_message_left {
+    color: red;
+    display: flex;
+    position: relative;
+    left: 3vw;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    z-index: 999;
+  }
+  .error_message_right {
+    color: red;
+    display: flex;
+    position: relative;
+    left: 6px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    z-index: 999;
+  }
+
+  input:focus {
+    outline-color: #1668c4 !important;
+  }
 
   label {
     display: flex;
     width: fit-content;
     font-size: 16px;
-  }
-
-  input[type="text"] {
-    margin-bottom: 20px;
-    padding: 10px;
-    box-sizing: border-box;
-    width: 50%;
-    min-height: 64px;
-  }
-
-  input[type="text"]:focus {
-    border: 1px solid #1668c4;
   }
 
   .fullname__container {
@@ -34,30 +44,28 @@
     .name__container {
       .name__input {
         position: relative;
-        left: -3vw;
-        width: 100%;
-        min-width: 410px;
-        padding: 20px 10px;
-        margin: 10px 1px;
+        width: 20.5vw;
+        min-height: 64px;
+        margin-left: 0vw;
+        margin-top: 1vh;
+        margin-right: 20px;
 
+        padding-left: 20px;
         color: grey;
         font-size: larger;
         background-color: white;
-        // box-sizing: border-box;
         border-radius: 5px;
         border: 1px solid gray;
-        //border-style: none;
       }
     }
     .apellido__container {
       .apellido__input {
-        width: 100%;
+        width: 21.8vw;
+        min-height: 64px;
+        margin-top: 1vh;
+        margin-right: 0;
         position: relative;
-        left: -25px;
-        padding: 20px 30px;
-        margin: 25px 20px;
-        margin-right: -10px;
-        margin-left: 40px;
+        padding-left: 15px;
         box-sizing: border-box;
         border-radius: 5px;
         border: 1px solid gray;
@@ -67,91 +75,99 @@
   }
 
   .email__input {
-    position: relative;
-    left: 2vw;
-    top: 1vh;
-    width: 820px !important;
-    margin: 1%;
-    box-sizing: border-box;
-    border-radius: 5px;
-    border: 1px solid gray;
-    font-size: larger;
+    input {
+      margin-left: 50px;
+      margin-top: 20px;
+      padding: 10px;
+      width: 90%;
+      border-radius: 5px;
+      border: 1px solid grey;
+      box-sizing: border-box;
+      min-height: 64px;
+      font-size: larger;
+      color: grey;
+    }
   }
 
   .zones__container {
     display: flex;
     position: relative;
     min-height: 64px;
-    top: -3vh;
+    margin-top: 20px;
     align-items: center;
     justify-content: center;
     text-align: left;
     font-size: 40px;
-    color: gre;
-    //background-color: aqua;
+    color: grey;
 
     .departamento__container {
-      position: relative;
-      left: 4vw;
-      top: 0;
-      margin: 2vh 5vw;
-      width: 100%;
       select {
-        order: 0;
+        position: relative;
+        left: 0vw;
+        color: grey;
+        width: 21.8vw;
+        min-height: 64px;
         border-radius: 5px;
-        padding: 15px 8vw;
+        padding-left: 20px;
         font-size: 20px;
+      }
+
+      select:focus {
+        outline-color: #007acc;
       }
     }
     .localidad__container {
-      position: relative;
-      left: -4vw;
-      margin: 5vh 5vw;
       select {
-        border-radius: 5px;
-        padding: 15px 6.5vw;
-        font-size: 20px;
+        position: relative;
+        left: 0vw;
+        margin-left: 1vw;
         color: grey;
+        width: 21.8vw;
+        min-height: 64px;
+        border-radius: 5px;
+        padding-left: 20px;
+        font-size: 20px;
+      }
+
+      select:focus {
+        outline-color: #007acc;
       }
     }
   }
 
   .CI__and__checkbox__container {
     display: flex;
-    position: relative;
-    top: -7vh;
-    min-height: 64px;
-    //background-color: aqua;
 
     .cedula__container {
-      input[type="text"] {
+      input {
         position: relative;
+        left: 1.5vw;
+        margin-left: 1vw;
+        margin-top: 20px;
+        color: grey;
+        width: 20.5vw;
+        min-height: 64px;
         border-radius: 5px;
-        padding-right: 6.6em;
-        margin: 4vh 12%;
-        padding-right: 10vw;
-        font-size: large;
-        width: 100%;
+        padding-left: 20px;
+        font-size: 20px;
         border: 1px solid gray;
       }
     }
     .checkbox__container {
-      input[type="checkbox"] {
+      input {
         position: relative;
-        top: 40px;
-        left: -0.8 vw;
-        border-radius: 10px;
-        font-size: large;
-        width: 100%;
+        top: 1.5vh;
+        left: 2.5vw;
       }
 
       label {
         position: relative;
-        top: 6.2vh;
-        left: 7.2vw;
-        font-size: 20px;
+        top: 4vh;
+        left: 3.8vw;
+        font-size: 25px;
         font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
           sans-serif;
+        color: grey;
       }
     }
   }
@@ -160,6 +176,7 @@
     display: flex;
     position: relative;
     left: 34%;
-    top: -6vh;
+    top: 4vh;
+    margin-bottom: 6vh;
   }
 }
