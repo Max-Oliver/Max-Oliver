@@ -21,11 +21,6 @@ export const Form = () => {
   });
   const [departamentos, setDepartamentos] = useState([]);
   const [localidades, setLocalidades] = useState([]);
-  const [validCI, setValidCI] = useState({
-    name: "",
-    valid: false,
-    value: "",
-  });
   const { Artigas, Canelones, Montevideo, Salto } = dptosLocs;
 
   useEffect(() => {
@@ -62,22 +57,6 @@ export const Form = () => {
       ...state,
       [name]: value,
     });
-  };
-
-  const checkValidCI = ({ name, value }) => {
-    if (name === "cedula") {
-      let isValid = validarCedula(value);
-      console.log(`Validando CI -> ${value} es ${isValid}`);
-      if (isValid) {
-        setValidCI({
-          name: name,
-          value: String(value),
-          valid: isValid,
-        });
-        console.log(`Se guardara -> ${name} ${value} es ${isValid}`);
-        handleInputChange(validCI.name, validCI.value);
-      }
-    }
   };
 
   const onSubmit = async (event) => {
@@ -229,19 +208,19 @@ export const Form = () => {
                 placeholder="C.I"
                 ref={register({
                   required: { value: true, message: "Este campo es requerido" },
-                  validate: validCI ? true : false,
+                  validate: validarCedula,
                 })}
-                //TODO: Revisar cedula no se esnvia en el onSubmit log
-                onChange={(event) => checkValidCI(event.target)}
+                onChange={(event) => handleInputChange(event.target)}
               />
               {errors.cedula && errors.cedula?.type === "required" && (
                 <p className="error_message_left">{errors.cedula.message}</p>
               )}
-              {!validCI.valid && (
-                <p className="error_message_left">
-                  Cedula incorrecta, recuerde solo ingresar numeros.
-                </p>
-              )}
+              {(errors.cedula && errors.cedula?.type === "value") ||
+                (errors.cedula?.type === "validate" && (
+                  <p className="error_message_left">
+                    Cedula incorrecta, recuerde solo ingresar numeros.
+                  </p>
+                ))}
             </div>
             <div className="checkbox__container">
               <label htmlFor="checkbox"> Acepto las bases y condiciones</label>
