@@ -10,7 +10,7 @@
 </a>
 
 - 💬 Ask me about ...
-- 📫 How to reach me: `You you can find me in every social media like Maximiliano Olivero.`
+- 📫 How to reach me: `Find me in every social media like Maximiliano Olivero.`
 - 😄 Pronouns: `Zero`
 - ⚡ Fun fact: ...
 
