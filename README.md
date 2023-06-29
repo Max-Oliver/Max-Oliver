@@ -1,4 +1,4 @@
-### Hey, nice to see you 😁
+### Hey, nice to meet you 😁
 
 [![Maximiliano Olivero's github stats](https://github-readme-stats.vercel.app/api?username=Max-Oliver&show_icons=true&theme=algolia)](https://github.com/Max-Oliver/github-readme-stats)
 
@@ -10,7 +10,7 @@
 </a>
 
 - 💬 Ask me about ...
-- 📫 How to reach me: `Find me in every social media like Maximiliano Olivero.`
+- 📫 How to reach me: `Find me in every social media like Maximiliano Olivero`
 - 😄 Pronouns: `Zero`
 - ⚡ Fun fact: ...
 
